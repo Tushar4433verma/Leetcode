@@ -101,33 +101,41 @@ struct Node
 };
  */
 
+
 class Solution{
     public:
     //Function to check whether a binary tree is balanced or not.
     
-    int height(Node* root)
+    pair<bool,int>solve(Node* root)
     {
         if(root==NULL)
-          return 0;
-          
-        int l=height(root->left);
-        int r=height(root->right);
-        int ans=max(l,r)+1;
+        {
+            pair<bool,int>p = make_pair(true,0);
+            return p;
+        }
+        
+        pair<bool,int>left=solve(root->left);
+        pair<bool,int>right=solve(root->right);
+        
+        bool leftans=left.first;
+        bool rightans=right.first;
+        int h=max(left.second,right.second)+1;
+        
+         pair<bool,int>ans;
+        if(abs(left.second-right.second)<=1 && leftans && rightans)
+        {
+            ans.first=true;
+            ans.second=h;
+        }
         return ans;
+        
     }
+    
     bool isBalanced(Node *root)
     {
-        if(root==NULL)
-          return true;
-          
-        bool l=isBalanced(root->left);
-        bool r=isBalanced(root->right);
-        bool diff=abs(height(root->left)-height(root->right))<=1;
         
-        if(l&&r&&diff)
-          return true;
-        else
-          return false;
+        return solve(root).first;
+        
     }
 };
 
