@@ -102,27 +102,36 @@ struct Node
  */
 
 class Solution{
-    public:int height(Node* root)
+    public:
+    pair<bool,int>solve(Node* root)
     {
         if(root==NULL)
-          return 0;
-          
-        int lh=height(root->left);
-        int rh=height(root->right);
-        return max(lh,rh)+1;
+        {
+            pair<bool,int>p=make_pair(true,0);
+            return p;
+        }
+        
+        pair<bool,int>left=solve(root->left);
+        pair<bool,int>right=solve(root->right);
+        
+        bool lans=left.first;
+        bool rans=right.first;
+        bool h=abs(left.second-right.second)<=1;
+        
+        pair<bool,int>ans;
+        ans.second=max(left.second,right.second)+1;
+        if(lans && rans && h)
+            ans.first=true;
+        else
+           ans.first=false;
+        
+        return ans;
+        
     }
     //Function to check whether a binary tree is balanced or not.
     bool isBalanced(Node *root)
     {
-        if(root==NULL)
-          return true;
-        
-        bool lans=isBalanced(root->left);
-        bool rans=isBalanced(root->right);
-        bool h=abs(height(root->left)-height(root->right))<=1;
-        
-        if(lans && rans && h) return true;
-        return false;
+        return solve(root).first;
         
     }
 };
