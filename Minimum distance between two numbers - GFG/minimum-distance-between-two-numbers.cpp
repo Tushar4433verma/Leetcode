@@ -9,21 +9,17 @@ class Solution{
     int minDist(int a[], int n, int x, int y) {
         
         int ix=-1,iy=-1;
-        int ans=INT_MAX;
+        int ans=1e9;
         
         for(int i=0;i<n;i++)
         {
-            if(a[i]==x)
-              ix=i;
-            else if(a[i]==y)
-              iy=i;
+            if(a[i]==x) ix=i;
+            else if(a[i]==y) iy=i;
               
-            if(ix!=-1 && iy!=-1)
-                ans=min(ans,abs(ix-iy));
+            if(ix!=-1 && iy!=-1) ans=min(ans,abs(ix-iy));
         }
         
-        if(ans==INT_MAX) return -1;
-        
+        if(ans==1e9) ans=-1;
         return ans;
     }
 };
