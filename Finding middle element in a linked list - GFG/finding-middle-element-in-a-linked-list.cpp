@@ -38,28 +38,20 @@ struct Node {
 }; */
 class Solution{
     public:
-    /* Should return data of middle node. If linked list is empty, then  -1*/
     int getMiddle(Node *head)
     {
-        if(head==NULL) return NULL;
         
-        Node *temp=head;
-        int cnt=0;
-        while(temp!=NULL)
+        Node* fast=head->next;
+        Node* slow=head;
+        
+        while(fast!=NULL)
         {
-            cnt++;
-            temp=temp->next;
+            fast=fast->next;
+            if(fast!=NULL)  fast=fast->next;
+            slow=slow->next;
         }
-      //  cout<<cnt<<endl;
-        
-        int num=cnt/2;
-        temp=head;
-        while(num--)
-        {
-            temp=temp->next;
-        }
-        
-        return temp->data;
+        return slow->data;
+   
     }
 };
 
