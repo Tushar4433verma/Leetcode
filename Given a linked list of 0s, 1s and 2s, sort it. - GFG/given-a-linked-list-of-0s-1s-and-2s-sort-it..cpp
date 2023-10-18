@@ -33,39 +33,47 @@ class Solution
 {
     public:
     //Function to sort a linked list of 0s, 1s and 2s.
+    void insertTail(Node*&tail,Node* val)
+    {
+        tail->next=val;
+        tail=tail->next;
+        
+    }
     Node* segregate(Node *head) {
         
-        
-        int cnt1=0;
-        int cnt2=0;
-        int cnt0=0;
-        
-        Node* ptr=head;
-        while(ptr!=NULL)
-        {
-            if(ptr->data==0) cnt0++;
-            if(ptr->data==1) cnt1++;
-            if(ptr->data==2)  cnt2++;
+      
+       Node* zerohead=new Node(-1);
+       Node* onehead=new Node(-1);
+       Node* twohead=new Node(-1);
+       Node* zerotail=zerohead;
+       Node* onetail=onehead;
+       Node* twotail=twohead;
+       Node* ptr=head;
+       
+       while(ptr!=NULL)
+       {
+           if(ptr->data==0)
+               insertTail(zerotail,ptr);
+            if(ptr->data==1)
+               insertTail(onetail,ptr);
+            if(ptr->data==2)
+               insertTail(twotail,ptr);
+            
             ptr=ptr->next;
-        }
-        ptr=head;
-        while(cnt0--){
-            ptr->data=0;
-            ptr=ptr->next;
-        }
+       }
+       
+       //merging them
+       
+       if(onehead->next!=NULL)
+          zerotail->next=onehead->next;
+        else
+          zerotail->next=twohead->next;
         
-        while(cnt1--){
-            ptr->data=1;
-            ptr=ptr->next;
-        }
+        onetail->next=twohead->next;
+        twotail->next=NULL;
+        head=zerohead->next;
         
-        
-        while(cnt2--){
-            ptr->data=2;
-            ptr=ptr->next;
-        }
         return head;
-        
     }
 };
 
