@@ -52,23 +52,23 @@ class Solution
     struct node *reverse (struct node *head, int k)
     { 
         
+        node* prev=NULL;
+        node* curr=head;
+        node* ff=NULL;
         int cnt=0;
-        struct node* curr=head;
-        struct node* forward=NULL;
-        struct node* prev=NULL;
         
         while(curr!=NULL && cnt<k)
         {
-            forward=curr->next;
+            ff=curr->next;
             curr->next=prev;
             prev=curr;
-            curr=forward;
+            curr=ff;
             cnt++;
         }
-        if(forward!=NULL)
-            head->next=reverse(forward,k);
-            
+        if(ff!=NULL)
+          head->next=reverse(ff,k);
         return prev;
+        
         
     }
 };
