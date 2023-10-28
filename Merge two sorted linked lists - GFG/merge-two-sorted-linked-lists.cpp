@@ -81,52 +81,52 @@ struct Node {
   }
 };
 */
-//Function to merge two sorted linked list.
-Node* solve(Node* first,Node*second)
+
+Node* solve(Node*first,Node* second)
 {
-    if(first->next==NULL)
-    {
-        first->next=second;
-        return first;
-    }
-    Node* prev=first;
-    Node* forward=prev->next;
+    Node* curr1=first;
+    Node* curr2=second;
+    Node* next1=curr1->next;
+    Node* next2=curr2->next;
     
-    Node* t1=second;
-    Node* t2=t1;
-    
-    while(forward!=NULL && t1!=NULL)
+    while(next1!=NULL && curr2!=NULL)
     {
-        if(prev->data<=t1->data && t1->data<=forward->data)
+        if(curr1->data<=curr2->data && curr2->data<=next1->data)
         {
-            prev->next=t2;
-            t2=t1->next;
-            t1->next=forward;
-            prev=t1;
-            t1=t2;
+            curr1->next=curr2;
+            next2=curr2->next;
+            curr2->next=next1;
+            curr1=curr2;
+            curr2=next2;
+          
         }
         else
         {
-            prev=forward;
-            forward=forward->next;
-            if(forward==NULL)
-            {
-                prev->next=t1;
-                return first;
-            }
+            curr1=next1;
+            next1=next1->next;
+           if(next1==NULL)
+           {
+               curr1->next=curr2;
+               return first;
+           }
         }
+    }
+    if(next1==NULL)
+    {
+        curr1->next=curr2;
+        return first;
     }
     return first;
 }
-Node* sortedMerge(Node* h1, Node* h2)  
+
+Node* sortedMerge(Node* head1, Node* head2)  
 {  
+    if(head1==NULL) return head2;
+    if(head2==NULL) return head1;
     
-    if(h1==NULL) return h2;
-    if(h2==NULL) return h1;
-    
-    if(h1->data<=h2->data)
-       return solve(h1,h2);
+    if(head1->data>=head2->data)
+     return solve(head2,head1);
     else
-       return solve(h2,h1);
-    
+     return solve(head1,head2);
+ 
 }  
