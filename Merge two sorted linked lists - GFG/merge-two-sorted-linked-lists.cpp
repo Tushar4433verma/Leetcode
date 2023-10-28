@@ -104,11 +104,11 @@ Node* solve(Node*first,Node* second)
         {
             curr1=next1;
             next1=next1->next;
-           if(next1==NULL)
-           {
-               curr1->next=curr2;
-               return first;
-           }
+        //   if(next1==NULL)
+        //   {
+        //       curr1->next=curr2;
+        //       return first;
+        //   }
         }
     }
     if(next1==NULL)
