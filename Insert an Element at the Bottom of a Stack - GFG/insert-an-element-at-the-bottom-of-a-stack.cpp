@@ -10,21 +10,23 @@ using namespace std;
 
 class Solution{
 public:
-
-   void solv(stack<int> &st,int x){
-       if(st.empty()){
-           st.push(x);
+   void solve(stack<int>&st,int el)
+   {
+       if(st.empty())
+       {
+           st.push(el);
            return;
        }
-       
-       int tp=st.top();
+       int num=st.top();
        st.pop();
-       solv(st,x);
-       st.push(tp);
+       solve(st,el);
+       st.push(num);
    }
-    stack<int> insertAtBottom(stack<int> St,int X){
-        solv(St,X);
-        return St;
+    stack<int> insertAtBottom(stack<int> st,int x){
+        
+       solve(st,x);
+       return st;
+        
     }
 };
 
