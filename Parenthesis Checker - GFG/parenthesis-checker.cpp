@@ -11,35 +11,35 @@ class Solution
     //Function to check if brackets are balanced or not.
     bool ispar(string x)
     {
+        stack<int>st;
         
-        stack<char>st;
-        
-        if(x.length()&1)  return false;
-        
-        if(x[0]==')'||x[0]==']'||x[0]=='}')  return false;
-        
+        if(x[0]==')' || x[0]=='}' || x[0]==']')
+            return false;
+            
         for(int i=0;i<x.length();i++)
         {
-            char ch=x[i];
-            if(x[i]=='(' ||x[i]=='[' || x[i]=='{')
-              st.push(ch);
+            if(x[i]=='(' || x[i]=='{' || x[i]=='[')
+              st.push(x[i]);
             else
             {
-                //closing bracket
-                if( st.size()>0 && (ch==')' && st.top()=='(') ||(ch==']' && st.top()=='[') ||(ch=='}' && st.top()=='{'))
+                //closing wala bracket
+                if(!st.empty())
                 {
-                    st.pop();
+                    char ch=st.top();
+                    if((ch=='(' && x[i]==')') 
+                    || (ch=='{' && x[i]=='}')
+                    || (ch=='[' && x[i]==']'))
+                        st.pop();
+                    else
+                      return false;
                 }
-                else return false;
-                
+                else
+                  return false;
             }
         }
-        if(st.empty()) return true;
-        
-        return false;
-    
+         if(st.empty()) return true;
+         return false;
     }
-
 };
 
 //{ Driver Code Starts.
