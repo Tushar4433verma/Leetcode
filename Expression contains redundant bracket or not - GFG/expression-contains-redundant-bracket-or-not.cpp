@@ -7,32 +7,35 @@ using namespace std;
 class Solution {
   public:
     int checkRedundancy(string s) {
+        stack<char>st;
+        int ans;
         
-        stack<int>st;
-        int flag=1;
         for(int i=0;i<s.length();i++)
         {
-            char ch=s[i];
-            if(ch=='(' || ch=='+'||ch=='-'||ch=='*'||ch=='/')
-              st.push(ch);
+            if(s[i]=='(' || s[i]=='+' || s[i]=='-'|| s[i]=='*' || s[i]=='/')
+                st.push(s[i]);
             else
             {
-                if(ch==')')
-                {
-                    flag=1;
-                    while(st.top()!='('){
-                    if(st.top()=='+'||st.top()=='-'||st.top()=='*'||st.top()=='/'){
-                        flag=0;
-                      st.pop();
+                //closing
+                if(s[i]==')'){
+                if(st.top()=='+' || st.top()=='-'|| st.top()=='*' || st.top()=='/')
+                { 
+                    ans=1;
+                    while(st.top()!='(')
+                    {
+                        st.pop();
+                        ans=0;
                     }
-                    else return 1;
-                    }
-                    if(flag==1) return 1;
-                    st.pop();
                 }
+                else
+                  return 1;
+                  
+                if(ans==1)
+                  return 1;
+                st.pop();
+            }
             }
         }
-        
         return 0;
     }
 };
