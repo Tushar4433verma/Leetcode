@@ -10,6 +10,7 @@ using namespace std;
 
 class Solution{
 public:
+   
    void solve(stack<int>&st,int el)
    {
        if(st.empty())
@@ -17,16 +18,15 @@ public:
            st.push(el);
            return;
        }
-       int num=st.top();
+       int temp=st.top();
        st.pop();
        solve(st,el);
-       st.push(num);
+       st.push(temp);
    }
-    stack<int> insertAtBottom(stack<int> st,int x){
+    stack<int> insertAtBottom(stack<int>st,int x){
         
-       solve(st,x);
-       return st;
-        
+        solve(st,x);
+        return st;
     }
 };
 
